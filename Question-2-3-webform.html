@@ -23,34 +23,73 @@
     
     fieldset ul {
       margin: 0;
-    }</style>
+    }
+    
+    textarea {
+      width: 300px;
+      height: 200px;
+    }
+
+    /* Added this style so that it will not show up on non-screen reader users */
+    #fullnameFormat,
+    #bioTips,
+    #genderAria {
+      display: none;
+    }
+    
+    </style>
     </head>
     <body>
-        <h1>Feedback form</h1>
+
+      <!-- to make the form as one, I put it inside the fieldset tag -->
+      <fieldset>
+
+        <!-- legend tag will form a line around the form -->
+        <legend>
+          <h1>Feedback form</h1>
+        </legend>
+
     <form>
+
         <div class="control">
-          <label>Full name <span class="required">*</span></label><input id="name" name="name" type="text" />
+
+          <label for="fullName">Full name <span class="required" aria-hidden="true">*</span></label>
+          <!-- aria-describe by will act like a tooltip for screen reader users -->
+          <input type="text" id="fullName" name="fullName" required aria-describedby="fullnameFormat"/>
+          <span id="fullnameFormat">Must include firstname and lastname</span>
         </div>
+
+
         <div class="control">
-          <label>Biography</label><textarea id="biography" name="biography" type="text"></textarea>
-          <span>Include examples on your skills in JavaScript.</span>
+          <label for="biography">Biography<span class="required" aria-hidden="true">*</span></label>
+          <span aria-hidden="true">Include examples on your skills in JavaScript.</span> <br aria-hidden="true">
+          <textarea id="biography" name="biography" type="text" required aria-required="true" aria-describedby="bioTips"></textarea>
+          <span id="bioTips">Include examples on your skills in JavaScript.</span>
         </div>
         
-          <div>Gender</div>
-          <div class="control">
-            <input id="gender_male" name="gender" type="radio" value="male" /><label>Male</label>
-          </div>
-          <div class="control">
-            <input id="gender_female" name="gender" type="radio" value="female" /><label>Female</label>
+          <div>Gender<span class="required" aria-hidden="true" aria-describedby="genderAria">*</span></div>
+          <div class="control" aria-label="Select gender, required">
+            <input id="gender_male" name="gender" type="radio" value="male" /><label for="gender_male">Male</label> <br>
+            <input id="gender_female" name="gender" type="radio" value="female" /><label for="gender_female">Female</label>
           </div>
         
         <div class="control">
-          <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" /><label>I accept the terms and conditions</label>
+
+          <!-- I let the aria read the text first before mentioning the checkbox.  -->
+          <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" aria-label="I accept the terms and conditions"/>
+            
+          <label for="accept_agbs" aria-hidden="true">I accept the terms and conditions</label>
         </div>
         <div class="control">
-          <input name="validate" type="hidden" value="1" /><input type="submit" value="Register" />
+
+          <!-- for validation message -->
+          <input name="validate" type="hidden" value="1" />
+
+          <input type="submit" value="Register" /> 
+
         </div>
       </form>
+    </fieldset>
       
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
           <script>"use strict";
