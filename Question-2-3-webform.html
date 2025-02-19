@@ -36,6 +36,10 @@
     #genderAria {
       display: none;
     }
+
+    ul li:nth-child(3), ul li:nth-child(4) {
+  pointer-events: none; /* Prevent interaction with the element */
+}
     
     </style>
     </head>
@@ -53,9 +57,9 @@
 
         <div class="control">
 
-          <label for="fullName">Full name <span class="required" aria-hidden="true">*</span></label>
+          <label for="name">Full name <span class="required" aria-hidden="true">*</span></label>
           <!-- aria-describe by will act like a tooltip for screen reader users -->
-          <input type="text" id="fullName" name="fullName" required aria-describedby="fullnameFormat"/>
+          <input type="text" id="name" name="name" aria-required="true" aria-describedby="fullnameFormat"/>
           <span id="fullnameFormat">Must include firstname and lastname</span>
         </div>
 
@@ -63,11 +67,13 @@
         <div class="control">
           <label for="biography">Biography<span class="required" aria-hidden="true">*</span></label>
           <span aria-hidden="true">Include examples on your skills in JavaScript.</span> <br aria-hidden="true">
-          <textarea id="biography" name="biography" type="text" required aria-required="true" aria-describedby="bioTips"></textarea>
+          <textarea id="biography" name="biography" type="text" aria-required="true" aria-describedby="bioTips"></textarea>
           <span id="bioTips">Include examples on your skills in JavaScript.</span>
         </div>
         
-          <div>Gender<span class="required" aria-hidden="true" aria-describedby="genderAria">*</span></div>
+          <div>Gender<span class="required" aria-hidden="true" aria-describedby="genderAria">*</span>
+          </div>
+
           <div class="control" aria-label="Select gender, required">
             <input id="gender_male" name="gender" type="radio" value="male" /><label for="gender_male">Male</label> <br>
             <input id="gender_female" name="gender" type="radio" value="female" /><label for="gender_female">Female</label>
@@ -80,6 +86,7 @@
             
           <label for="accept_agbs" aria-hidden="true">I accept the terms and conditions</label>
         </div>
+        
         <div class="control">
 
           <!-- for validation message -->
@@ -131,14 +138,16 @@
               $referencedElement = $input;
             }
       // R.G. hint: fix next line ;)
-            $error = $('<a>' + message + '</a>');
+
+            // only added href with #
+            $error = $('<a href="#">' + message + '</a>');
             $error.click(function (e) {
               // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
               $referencedElement.focus();
               return e.preventDefault();
             });
             $elementToDescribe.attr('aria-describedby', input + '_description');
-            $errorContainer.append('<li>').find('li:last').append($error);
+            $errorContainer.append('<li tabindex="0">').find('li:last').append($error);
       
             if ($(':not(form):focus').length === 0) {
               // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
@@ -164,12 +173,32 @@
             validateInput('gender', 'Please tell us your gender!');
             validateInput('accept_agbs', 'You must accept our terms and conditions!');
       
-            if ($('.error').length === 0) {
+            // added an 's' for it to work
+            if ($('.errors').length === 0) {
               return alert('All inputs are valid.');
             }
           }
+          // Select the 3rd and 4th <li> elements
+$('ul li:nth-child(3), ul li:nth-child(4)').each(function() {
+  // Find the <a> tag and replace it with <p>
+  $(this).find('a').replaceWith(function() {
+    return $('<p style="padding: 0 !important; margin: 0 !important">').text($(this).text()); // Replace <a> with <p> and keep the text content
+  });
+
+
+});
+
         });
-      }).call(void 0);</script>
+      }).call(void 0);
+      
+      
+      
+      
+      
+      
+      </script>
+
+
                 
         </body>
       </html>
