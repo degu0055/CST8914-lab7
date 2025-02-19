@@ -193,6 +193,16 @@ article p {
   float: right;
 }
 
+
+/* Added a style to make all interactive elements become visible */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible {
+  outline: 5px solid #ff6600; 
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
   </style>
 </head>
 
@@ -209,18 +219,13 @@ article p {
         <a href="#" tabindex="-1">Business</a>
         <a href="#">Entertainment</a>
         <a href="#">Sports</a>
-        <a href="#" class="btn-search pull-right"><img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search</a> 
-
+        <a href="#" class="btn-search pull-right">
+          <img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search
+        </a> 
       </nav>
     </div>
   </header>
-  <div class="newsletter">
-    <div class="container">
-      <h3>Like the Funion? Consider joining our newsletter!</h3>
-      <input type="text">
-      <button type="button" onfocus="getFocus()">Sign up</button></div>
-      
-    </div>
+
   </div>
   <main class="container">
     <h2 class="offscreen">Top story</h2>
@@ -239,11 +244,11 @@ article p {
     <div class="side-by-side">
       <div class="column">
         <div class="tier-header">
-          <h2 tabindex="0">In the news</h2>
+          <h2>In the news</h2>
         </div>
         <article>
           <h3 class="headline">Bee wonders if maybe everyone else is a drone and he's the only one who has it "figured out."</h3>
-          <p><a href="#" tabindex="1"><b>Read More</b></a></p>
+          <p><a href="#" tabindex="0"><b>Read More</b></a></p>
           <img src="https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/02-dom-order/images/bee.jpg?raw=true" alt="A bee on top of a flower" />
         </article>
       </div>
@@ -286,13 +291,25 @@ article p {
     </div>
     
   </main>
-  <!--   stuff can be added here :)
-  <footer>
+
+  <!-- Placed the newsletter section here so that It will be the last element when pressing tab -->
+  <footer class="newsletter">
+      <div class="container">
+        <h3>Like the Funion? Consider joining our newsletter!</h3>
+        <input type="text">
+
+
+        <!-- Instead of onfocus, I changed it to onclick to make the website appear only if the user decided to -->
+        <button type="button" onClick="gotoLink()">Sign up</button>
+
+        
+      </div>
   </footer>
-  -->
+  
   
   <script>
-    function getFocus() {
+
+    function gotoLink() {
       window.open('https://aidaform.com/templates/thank-you-page-with-redirects.html','mywindow').focus()
     }
     </script>
