@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Form validation with messages on top: Code example - Accessibility Developer Guide example</title>
-        <meta charset="utf-8">
-        <style>.control, fieldset {
+
+<head>
+  <title>Form validation with messages on top: Code example - Accessibility Developer Guide example</title>
+  <meta charset="utf-8">
+  <style>
+    .control,
+    fieldset {
       margin: 6px 0;
     }
-    
+
     label {
       display: inline-block;
       width: 120px;
       vertical-align: top;
     }
-    
-    input + label {
+
+    input+label {
       width: auto;
     }
-    
-    .error, .required {
+
+    .error,
+    .required {
       color: red;
     }
-    
+
     fieldset ul {
       margin: 0;
     }
-    
+
     textarea {
       width: 300px;
       height: 200px;
@@ -37,168 +41,174 @@
       display: none;
     }
 
-    ul li:nth-child(3), ul li:nth-child(4) {
-  pointer-events: none; /* Prevent interaction with the element */
-}
-    
-    </style>
-    </head>
-    <body>
+  </style>
+</head>
 
-      <!-- to make the form as one, I put it inside the fieldset tag -->
-      <fieldset>
+<body>
 
-        <!-- legend tag will form a line around the form -->
-        <legend>
-          <h1>Feedback form</h1>
-        </legend>
+  <!-- to make the form as one, I put it inside the fieldset tag -->
+  <fieldset>
+
+    <!-- legend tag will form a line around the form -->
+    <legend>
+      <h1>Feedback form</h1>
+    </legend>
+
+
 
     <form>
 
-        <div class="control">
+      <div class="control">
 
-          <label for="name">Full name <span class="required" aria-hidden="true">*</span></label>
-          <!-- aria-describe by will act like a tooltip for screen reader users -->
-          <input type="text" id="name" name="name" aria-required="true" aria-describedby="fullnameFormat"/>
-          <span id="fullnameFormat">Must include firstname and lastname</span>
-        </div>
+        <label for="name">Full name <span class="required" aria-hidden="true">*</span></label>
+        <!-- aria-describe by will act like a tooltip for screen reader users -->
+        <input type="text" id="name" name="name" aria-required="true" aria-describedby="fullnameFormat" />
+        <span id="fullnameFormat">Must include firstname and lastname</span>
+      </div>
 
 
-        <div class="control">
-          <label for="biography">Biography<span class="required" aria-hidden="true">*</span></label>
-          <span aria-hidden="true">Include examples on your skills in JavaScript.</span> <br aria-hidden="true">
-          <textarea id="biography" name="biography" type="text" aria-required="true" aria-describedby="bioTips"></textarea>
-          <span id="bioTips">Include examples on your skills in JavaScript.</span>
-        </div>
-        
-          <div>Gender<span class="required" aria-hidden="true" aria-describedby="genderAria">*</span>
-          </div>
+      <div class="control">
+        <label for="biography">Biography<span class="required" aria-hidden="true">*</span></label>
+        <span aria-hidden="true">Include examples on your skills in JavaScript.</span> <br aria-hidden="true">
+        <textarea id="biography" name="biography" type="text" aria-required="true"
+          aria-describedby="bioTips"></textarea>
+        <span id="bioTips">Include examples on your skills in JavaScript.</span>
+      </div>
 
-          <div class="control" aria-label="Select gender, required">
-            <input id="gender_male" name="gender" type="radio" value="male" /><label for="gender_male">Male</label> <br>
-            <input id="gender_female" name="gender" type="radio" value="female" /><label for="gender_female">Female</label>
-          </div>
-        
-        <div class="control">
+      <div id="test">Gender<span class="required" aria-hidden="true" aria-describedby="genderAria">*</span>
+      </div>
 
-          <!-- I let the aria read the text first before mentioning the checkbox.  -->
-          <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" aria-label="I accept the terms and conditions"/>
-            
-          <label for="accept_agbs" aria-hidden="true">I accept the terms and conditions</label>
-        </div>
-        
-        <div class="control">
+      <div class="control" id="gender_div" aria-label="Select gender, required">
+        <input class="gender_male" id="gender_male" name="gender" type="radio" value="male" /><label
+          for="gender_male">Male</label> <br>
+        <input id="gender_female" name="gender" type="radio" value="female" /><label for="gender_female">Female</label>
+      </div>
 
-          <!-- for validation message -->
-          <input name="validate" type="hidden" value="1" />
+      <div class="control">
 
-          <input type="submit" value="Register" /> 
+        <!-- I let the aria read the text first before mentioning the checkbox.  -->
+        <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1"
+          aria-label="I accept the terms and conditions" />
 
-        </div>
-      </form>
-    </fieldset>
-      
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-          <script>"use strict";
-      
-      ;
-      (function () {
-        var validateInput;
-      
-        $.urlParam = function (name) {
-          var results;
-          results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
-      
-          if (results === null) {
-            return null;
+        <label for="accept_agbs" aria-hidden="true">I accept the terms and conditions</label>
+      </div>
+
+      <div class="control">
+
+        <!-- for validation message -->
+        <input name="validate" type="hidden" value="1" />
+
+        <input type="submit" value="Register" />
+
+      </div>
+    </form>
+  </fieldset>
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script>"use strict";
+
+
+
+
+    (function () {
+      var validateInput;
+
+      $.urlParam = function (name) {
+        var results;
+        results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
+
+        if (results === null) {
+          return null;
+        } else {
+          return decodeURI(results[1]) || null;
+        }
+      };
+
+      validateInput = function validateInput(input, message) {
+        var $elementToDescribe, $error, $errorContainer, $fieldset, $input, $referencedElement, value;
+        $input = $('[name="' + input + '"]');
+
+        if ((value = $.urlParam(input)) === null) {
+          if ($('fieldset.errors').length === 0) {
+            $('form').prepend('<fieldset class="errors"><legend>Errors</legend><ul></ul></fieldset>');
+          }
+
+          $referencedElement = null;
+          $elementToDescribe = null;
+          $errorContainer = $('fieldset.errors ul');
+
+          if ($input.is(':radio')) {
+            $fieldset = $input.closest('fieldset');
+            $elementToDescribe = $fieldset;
+            $referencedElement = $input.filter(':first');
           } else {
-            return decodeURI(results[1]) || null;
+            $elementToDescribe = $input;
+            $referencedElement = $input;
           }
-        };
-      
-        validateInput = function validateInput(input, message) {
-          var $elementToDescribe, $error, $errorContainer, $fieldset, $input, $referencedElement, value;
-          $input = $('[name="' + input + '"]');
-      
-          if ((value = $.urlParam(input)) === null) {
-            if ($('fieldset.errors').length === 0) {
-              $('form').prepend('<fieldset class="errors"><legend>Errors</legend><ul></ul></fieldset>');
-            }
-      
-            $referencedElement = null;
-            $elementToDescribe = null;
-            $errorContainer = $('fieldset.errors ul');
-      
-            if ($input.is(':radio')) {
-              $fieldset = $input.closest('fieldset');
-              $elementToDescribe = $fieldset;
-              $referencedElement = $input.filter(':first');
-            } else {
-              $elementToDescribe = $input;
-              $referencedElement = $input;
-            }
-      // R.G. hint: fix next line ;)
+          // R.G. hint: fix next line ;)
 
-            // only added href with #
-            $error = $('<a href="#">' + message + '</a>');
-            $error.click(function (e) {
-              // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
-              $referencedElement.focus();
-              return e.preventDefault();
-            });
-            $elementToDescribe.attr('aria-describedby', input + '_description');
-            $errorContainer.append('<li tabindex="0">').find('li:last').append($error);
-      
-            if ($(':not(form):focus').length === 0) {
-              // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
-            
-            }
+          // only added href with #
+          $error = $('<a href="#">' + message + '</a>');
+          $error.click(function (e) {
+            // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
+            $referencedElement.focus();
+            return e.preventDefault();
+          });
+          $elementToDescribe.attr('aria-describedby', input + '_description');
+          $errorContainer.append('<li tabindex="0">').find('li:last').append($error);
+
+          if ($(':not(form):focus').length === 0) {
+            // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
+
+          }
+        } else {
+          if ($input.is(':checkbox')) {
+            $input.attr('checked', true);
+          }
+
+          if ($input.is(':radio')) {
+            return $input.filter('[value="' + value + '"]').attr('checked', true);
           } else {
-            if ($input.is(':checkbox')) {
-              $input.attr('checked', true);
-            }
-      
-            if ($input.is(':radio')) {
-              return $input.filter('[value="' + value + '"]').attr('checked', true);
-            } else {
-              return $input.val(value);
-            }
+            return $input.val(value);
           }
-        };
-      
-        $(document).ready(function () {
-          if ($.urlParam('validate')) {
-            validateInput('name', 'Please enter your name!');
-            validateInput('biography', 'Please tell us something about your history!');
-            validateInput('gender', 'Please tell us your gender!');
-            validateInput('accept_agbs', 'You must accept our terms and conditions!');
-      
-            // added an 's' for it to work
-            if ($('.errors').length === 0) {
-              return alert('All inputs are valid.');
-            }
+        }
+      };
+
+      $(document).ready(function () {
+
+
+        if ($.urlParam('validate')) {
+          validateInput('name', 'Please enter your name!');
+          validateInput('biography', 'Please tell us something about your history!');
+          validateInput('gender', 'Please tell us your gender!');
+          validateInput('accept_agbs', 'You must accept our terms and conditions!');
+
+          // added an 's' for it to work
+          if ($('.errors').length === 0) {
+            return alert('All inputs are valid.');
           }
-          // Select the 3rd and 4th <li> elements
-$('ul li:nth-child(3), ul li:nth-child(4)').each(function() {
-  // Find the <a> tag and replace it with <p>
-  $(this).find('a').replaceWith(function() {
-    return $('<p style="padding: 0 !important; margin: 0 !important">').text($(this).text()); // Replace <a> with <p> and keep the text content
-  });
+        }
 
 
-});
-
-        });
-      }).call(void 0);
-      
-      
-      
-      
-      
-      
-      </script>
+      });
+    }).call(void 0);
 
 
-                
-        </body>
-      </html>
+
+
+  </script>
+
+
+
+
+
+
+</body>
+
+</html>
